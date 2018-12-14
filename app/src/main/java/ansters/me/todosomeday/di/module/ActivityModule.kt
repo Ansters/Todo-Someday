@@ -1,4 +1,4 @@
-package ansters.me.todosomeday.di.Module
+package ansters.me.todosomeday.di.module
 
 import ansters.me.todosomeday.ui.main.MainActivity
 import dagger.Module

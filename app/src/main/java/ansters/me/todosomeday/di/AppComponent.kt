@@ -2,8 +2,8 @@ package ansters.me.todosomeday.di
 
 import android.app.Application
 import ansters.me.todosomeday.TodoApp
-import ansters.me.todosomeday.di.Module.ActivityModule
-import ansters.me.todosomeday.di.Module.AppModule
+import ansters.me.todosomeday.di.module.ActivityModule
+import ansters.me.todosomeday.di.module.AppModule
 import dagger.BindsInstance
 import dagger.Component
 import dagger.android.AndroidInjectionModule

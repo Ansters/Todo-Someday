@@ -1,4 +1,4 @@
-package ansters.me.todosomeday.di.Module
+package ansters.me.todosomeday.di.module
 
 import android.app.Application
 import androidx.room.Room
