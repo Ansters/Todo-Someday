@@ -5,8 +5,11 @@
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
         <item name="android:statusBarColor">@color/background_main</item>
-        <item name="android:background">@color/background_main</item>
         <item name="android:windowLightStatusBar" tools:targetApi="23">true</item>
+    </style>
+
+    <style name="BaseFragment">
+        <item name="android:background">@color/background_main</item>
     </style>
 
     <style name="TitleApp">
@@ -15,6 +18,26 @@
         <item name="android:textStyle">bold</item>
         <item name="android:text">@string/app_name</item>
         <item name="android:layout_margin">16dp</item>
+    </style>
+
+    <style name="MyAppBar">
+        <item name="android:elevation">0dp</item>
+        <item name="android:background">@color/background_main</item>
+    </style>
+
+    <style name="TaskBox">
+        <item name="android:layout_margin">16dp</item>
+        <item name="android:layout_gravity">bottom</item>
+    </style>
+
+    <style name="TaskEditBox">
+        <item name="android:background">@null</item>
+        <item name="android:hint">@string/hint_add_task</item>
+        <item name="android:layout_marginStart">16dp</item>
+        <item name="android:layout_marginEnd">16dp</item>
+        <item name="android:layout_marginLeft">16dp</item>
+        <item name="android:layout_marginRight">16dp</item>
+        <item name="android:textSize">16sp</item>
     </style>
 
 </resources>

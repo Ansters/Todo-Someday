@@ -1,6 +1,8 @@
 <resources>
     <string name="app_name">Todo Someday</string>
 
+    <string name="hint_add_task">ADD TASK FOR YOUR DAY</string>
+
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

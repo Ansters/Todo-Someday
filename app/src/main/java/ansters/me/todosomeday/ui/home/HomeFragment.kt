@@ -11,6 +11,7 @@ import androidx.databinding.DataBindingUtil
 import ansters.me.todosomeday.R
 import ansters.me.todosomeday.base.BaseFragment
 import ansters.me.todosomeday.databinding.FragmentHomeBinding
+import javax.inject.Inject
 
 class HomeFragment : BaseFragment() {
 
@@ -27,6 +28,10 @@ class HomeFragment : BaseFragment() {
             false
         )
         return binding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+
     }
 
 }
