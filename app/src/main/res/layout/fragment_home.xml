@@ -4,6 +4,14 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
+    <data>
+        <import type="android.view.View"/>
+        <import type="ansters.me.todosomeday.ui.todo.TodoViewModel"/>
+        <variable
+            name="todoVM"
+            type="ansters.me.todosomeday.ui.todo.TodoViewModel"/>
+    </data>
+
     <androidx.coordinatorlayout.widget.CoordinatorLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -36,6 +44,12 @@
             android:layout_height="match_parent"
             app:layout_behavior="@string/appbar_scrolling_view_behavior"
             app:layoutManager="LinearLayoutManager"/>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/background_dim_dark"
+            android:visibility="@{todoVM.isCurrentlyAddTask ? View.VISIBLE : View.GONE}"/>
 
         <androidx.cardview.widget.CardView
             android:layout_width="match_parent"

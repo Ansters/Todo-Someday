@@ -4,6 +4,8 @@ import android.app.Application
 import ansters.me.todosomeday.TodoApp
 import ansters.me.todosomeday.di.module.ActivityModule
 import ansters.me.todosomeday.di.module.AppModule
+import ansters.me.todosomeday.di.module.FragmentModule
+import ansters.me.todosomeday.di.module.ViewModelModule
 import dagger.BindsInstance
 import dagger.Component
 import dagger.android.AndroidInjectionModule
@@ -14,7 +16,8 @@ import javax.inject.Singleton
     modules = [
         AndroidInjectionModule::class,
         ActivityModule::class,
-        AppModule::class
+        AppModule::class,
+        ViewModelModule::class
     ]
 )
 interface AppComponent {

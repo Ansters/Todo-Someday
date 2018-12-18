@@ -19,7 +19,7 @@ object AppInjector {
             .inject(todoApp)
         todoApp.registerActivityLifecycleCallbacks(object : Application.ActivityLifecycleCallbacks{
             override fun onActivityPaused(activity: Activity) {
-                handleActivity(activity)
+
             }
 
             override fun onActivityResumed(activity: Activity) {
@@ -42,8 +42,8 @@ object AppInjector {
 
             }
 
-            override fun onActivityCreated(activity: Activity?, savedInstanceState: Bundle?) {
-
+            override fun onActivityCreated(activity: Activity, savedInstanceState: Bundle?) {
+                handleActivity(activity)
             }
 
         })
