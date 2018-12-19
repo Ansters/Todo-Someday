@@ -10,8 +10,8 @@ class TodoViewModel @Inject constructor(todoRepository: TodoRepository) : ViewMo
     var isCurrentlyAddTask : MutableLiveData<Boolean> = MutableLiveData<Boolean>()
     var isEditTaskNotEmpty: MutableLiveData<Boolean> = MutableLiveData<Boolean>()
 
-    fun editTaskPress() {
-        isCurrentlyAddTask.value = true
-    }
+    fun addTaskFocusChange(hasFocus: Boolean) {
+        isCurrentlyAddTask.value = hasFocus
 
+    }
 }

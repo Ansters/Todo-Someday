@@ -2,12 +2,15 @@ package ansters.me.todosomeday.ui.home
 
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelProviders
+import ansters.me.todosomeday.BR
 
 import ansters.me.todosomeday.R
 import ansters.me.todosomeday.base.BaseFragment
@@ -20,7 +23,6 @@ class HomeFragment : BaseFragment() {
 
     @Inject
     lateinit var viewModelFactory: ViewModelProvider.Factory
-
 
     lateinit var binding: FragmentHomeBinding
 
@@ -38,7 +40,15 @@ class HomeFragment : BaseFragment() {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        binding.setLifecycleOwner(this)
         binding.todoVM = ViewModelProviders.of(this, viewModelFactory).get(TodoViewModel::class.java)
+        initAddTaskListener()
+    }
+
+    private fun initAddTaskListener() {
+        binding.edTask.onFocusChangeListener = View.OnFocusChangeListener { v, hasFocus ->
+            binding.todoVM?.addTaskFocusChange(hasFocus)
+        }
     }
 
 }
