@@ -2,8 +2,6 @@ package ansters.me.todosomeday.ui.home
 
 
 import android.os.Bundle
-import android.util.Log
-import android.view.KeyEvent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -48,7 +46,7 @@ class HomeFragment : BaseFragment() {
 
     private fun initAddTaskListener() {
         binding.edTask.onFocusChangeListener = View.OnFocusChangeListener { v, hasFocus ->
-            binding.homeVM?.addTaskFocusChange(hasFocus)
+            binding.homeVM?.editTextFocusChange(hasFocus)
         }
         binding.dim.setOnClickListener {
             clearFocus()
@@ -56,14 +54,22 @@ class HomeFragment : BaseFragment() {
     }
 
     private fun clearFocus() {
-        binding.homeVM?.addTaskFocusChange(false)
         binding.edTask.clearFocus()
         Util.hideSoftKeyboard(context!!, view!!)
     }
 
     private fun subscribedUI() {
         binding.homeVM?.isCurrentlyAddTask?.observe(viewLifecycleOwner, Observer { isNowAddTask ->
-            binding.dim.visibility = if (isNowAddTask) View.VISIBLE else View.GONE
+            binding.dim.visibility = if (isNowAddTask) View.VISIBLE else View.GONE // make dim visible when user add task, else make it gone
+            binding.btnAdd.visibility = if (isNowAddTask) View.VISIBLE else View.GONE // make add button visible when user add task, else make it gone
+        })
+
+        binding.homeVM?.isEditTaskNotEmpty?.observe(viewLifecycleOwner, Observer { isTaskNotEmpty ->
+            binding.btnAdd.visibility = if (isTaskNotEmpty) View.VISIBLE else View.GONE // when user stop typing, observe edittext empty or not. if true make button visible, else make it gone
+        })
+
+        binding.homeVM?.task?.observe(viewLifecycleOwner, Observer { task ->
+            binding.btnAdd.isEnabled = !task.isEmpty() // enable button base on text is empty or not
         })
     }
 

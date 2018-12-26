@@ -71,6 +71,7 @@
                     android:inputType="text"
                     android:hint="@string/hint_add_task"
                     android:autofillHints="@string/hint_add_task"
+                    android:text="@={homeVM.task}"
                     style="@style/TaskEditBox"
                     tools:ignore="UnusedAttribute"/>
 
