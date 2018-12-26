@@ -1,13 +1,11 @@
 package ansters.me.todosomeday.db
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
-import androidx.test.runner.AndroidJUnit4
+import androidx.test.ext.junit.runners.AndroidJUnit4
 import ansters.me.todosomeday.data.Todo
-import ansters.me.todosomeday.util.LiveDataTestUtil
 import ansters.me.todosomeday.util.LiveDataTestUtil.getValue
 import ansters.me.todosomeday.util.TestUtil
-import org.hamcrest.CoreMatchers.*
-import org.hamcrest.MatcherAssert.assertThat
+import com.google.common.truth.Truth.assertThat
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -22,11 +20,11 @@ class TodoDaoTest : DbTest() {
     fun insertAndRead() {
         val todo = TestUtil.createTodo("do something", "2018-01-01", 0)
         val id = db.todoDao().insert(todo)
-        val loaded = LiveDataTestUtil.getValue(db.todoDao().find(id))
-        assertThat(loaded, notNullValue())
-        assertThat(loaded.task, `is`("do something"))
-        assertThat(loaded.date, `is`("2018-01-01"))
-        assertThat(loaded.status, `is`(0))
+        val loaded = getValue(db.todoDao().find(id))
+        assertThat(loaded).isNotNull()
+        assertThat(loaded.task).isEqualTo("do something")
+        assertThat(loaded.date).isEqualTo("2018-01-01")
+        assertThat(loaded.status).isEqualTo(0)
     }
 
     @Test
@@ -41,9 +39,9 @@ class TodoDaoTest : DbTest() {
         db.todoDao().update(todo)
 
         val loaded = getValue(db.todoDao().find(id))
-        assertThat(loaded, notNullValue())
-        assertThat(loaded.task, `is`("do something else"))
-        assertThat(loaded.status, `is`(1))
+        assertThat(loaded).isNotNull()
+        assertThat(loaded.task).isEqualTo("do something else")
+        assertThat(loaded.status).isEqualTo(1)
     }
 
     @Test
@@ -52,9 +50,13 @@ class TodoDaoTest : DbTest() {
         for (todo: Todo in todos) {
             db.todoDao().insert(todo)
         }
+
         val todoByDate = getValue(db.todoDao().findByDate("2018-02-02"))
+        var prevTodo = TestUtil.createTodo("", "", 0)
         for (todo: Todo in todoByDate) {
-            assertThat(todo.date, `is`("2018-02-02"))
+            assertThat(todo.date).isEqualTo("2018-02-02")
+            assertThat(todo.status >= prevTodo.status).isTrue()
+            prevTodo = todo
         }
     }
 
@@ -65,7 +67,7 @@ class TodoDaoTest : DbTest() {
         todo.id = id
         db.todoDao().delete(todo)
         val loaded = getValue(db.todoDao().find(id))
-        assertThat(loaded, nullValue())
+        assertThat(loaded).isNull()
     }
 
 }

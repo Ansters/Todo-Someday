@@ -1,6 +1,5 @@
 package ansters.me.todosomeday.ui.home
 
-import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import ansters.me.todosomeday.data.Todo

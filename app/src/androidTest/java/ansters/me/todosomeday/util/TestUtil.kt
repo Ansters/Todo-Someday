@@ -1,6 +1,7 @@
 package ansters.me.todosomeday.util
 
 import ansters.me.todosomeday.data.Todo
+import kotlin.random.Random
 
 object TestUtil {
 
@@ -12,8 +13,11 @@ object TestUtil {
 
     fun createRandomTodoByDate(count: Int, date: List<String>): List<Todo> {
         var todos = ArrayList<Todo>()
-        for (i in 0..count) {
+        for (i in 0..count/2) {
             todos.add(createTodo("Random task", date.random(), 0))
+        }
+        for (i in 0..count/2) {
+            todos.add(createTodo("Random task", date.random(), 1))
         }
         return todos
     }

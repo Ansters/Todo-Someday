@@ -7,6 +7,7 @@ import javax.inject.Inject
 
 /**
  * Simple Repository that load from DB only
+ * More advance might be in my future implementation
  */
 class TodoRepository @Inject constructor(
     private val todoDao: TodoDao

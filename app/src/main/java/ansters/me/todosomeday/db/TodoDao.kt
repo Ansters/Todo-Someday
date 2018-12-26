@@ -16,7 +16,7 @@ abstract class TodoDao {
     @Update
     abstract fun update(todo: Todo)
 
-    @Query("SELECT id, task, date, status FROM todo WHERE date = :date ORDER BY status DESC")
+    @Query("SELECT id, task, date, status FROM todo WHERE date = :date ORDER BY status ASC")
     abstract fun findByDate(date: String): LiveData<List<Todo>>
 
     @Delete
