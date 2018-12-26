@@ -3,6 +3,7 @@ package ansters.me.todosomeday.ui.home
 
 import android.os.Bundle
 import android.util.Log
+import android.view.KeyEvent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -10,13 +11,11 @@ import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelProviders
-import ansters.me.todosomeday.BR
 
 import ansters.me.todosomeday.R
 import ansters.me.todosomeday.base.BaseFragment
 import ansters.me.todosomeday.databinding.FragmentHomeBinding
-import ansters.me.todosomeday.ui.todo.TodoViewModel
-import dagger.android.support.AndroidSupportInjection
+import ansters.me.todosomeday.util.Util
 import javax.inject.Inject
 
 class HomeFragment : BaseFragment() {
@@ -41,14 +40,31 @@ class HomeFragment : BaseFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         binding.setLifecycleOwner(this)
-        binding.todoVM = ViewModelProviders.of(this, viewModelFactory).get(TodoViewModel::class.java)
+        binding.homeVM = ViewModelProviders.of(this, viewModelFactory).get(HomeViewModel::class.java)
+        binding.btnAdd.isEnabled = false
         initAddTaskListener()
+        subscribedUI()
     }
 
     private fun initAddTaskListener() {
         binding.edTask.onFocusChangeListener = View.OnFocusChangeListener { v, hasFocus ->
-            binding.todoVM?.addTaskFocusChange(hasFocus)
+            binding.homeVM?.addTaskFocusChange(hasFocus)
         }
+        binding.dim.setOnClickListener {
+            clearFocus()
+        }
+    }
+
+    private fun clearFocus() {
+        binding.homeVM?.addTaskFocusChange(false)
+        binding.edTask.clearFocus()
+        Util.hideSoftKeyboard(context!!, view!!)
+    }
+
+    private fun subscribedUI() {
+        binding.homeVM?.isCurrentlyAddTask?.observe(viewLifecycleOwner, Observer { isNowAddTask ->
+            binding.dim.visibility = if (isNowAddTask) View.VISIBLE else View.GONE
+        })
     }
 
 }

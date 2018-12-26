@@ -9,6 +9,7 @@
     <color name="text_disable">#8F8F8F</color>
     <color name="text_hint">#D5D5D5</color>
     <color name="button_enable">#1976D2</color>
+    <color name="button_enable_pressed">#135ea7</color>
     <color name="button_disable">#A6A6A6</color>
     <color name="background_active_task">#FFFFFF</color>
     <color name="background_dim_dark">#aa434343</color>

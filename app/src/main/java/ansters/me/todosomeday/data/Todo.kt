@@ -5,9 +5,9 @@ import androidx.room.PrimaryKey
 
 @Entity
 data class Todo(
-    val task: String,
-    val date: String,
-    val status: Int
+    var task: String,
+    var date: String,
+    var status: Int
 ) {
     @PrimaryKey(autoGenerate = true)
     var id: Long = 0

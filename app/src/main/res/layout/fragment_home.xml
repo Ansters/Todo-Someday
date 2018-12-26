@@ -6,10 +6,11 @@
 
     <data>
         <import type="android.view.View"/>
-        <import type="ansters.me.todosomeday.ui.todo.TodoViewModel"/>
+        <import type="ansters.me.todosomeday.ui.home.HomeViewModel"/>
+        <import type="ansters.me.todosomeday.data.Todo"/>
         <variable
-            name="todoVM"
-            type="ansters.me.todosomeday.ui.todo.TodoViewModel"/>
+            name="homeVM"
+            type="ansters.me.todosomeday.ui.home.HomeViewModel"/>
     </data>
 
     <androidx.coordinatorlayout.widget.CoordinatorLayout
@@ -49,8 +50,7 @@
             android:id="@+id/dim"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@color/background_dim_dark"
-            android:visibility="@{todoVM.isCurrentlyAddTask ? View.VISIBLE : View.GONE}"/>
+            android:background="@color/background_dim_dark"/>
 
         <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
@@ -68,7 +68,18 @@
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
-                    style="@style/TaskEditBox"/>
+                    android:inputType="text"
+                    android:hint="@string/hint_add_task"
+                    android:autofillHints="@string/hint_add_task"
+                    style="@style/TaskEditBox"
+                    tools:ignore="UnusedAttribute"/>
+
+                <ImageButton
+                    android:id="@+id/btnAdd"
+                    android:layout_width="60dp"
+                    android:layout_height="match_parent"
+                    android:src="@drawable/ic_add"
+                    android:background="@drawable/btn_add"/>
 
             </LinearLayout>
 

@@ -23,7 +23,7 @@ class TodoRepository @Inject constructor(
         todoDao.update(todo)
     }
 
-    fun getTodo(id: Long) : Todo {
+    fun getTodo(id: Long) : LiveData<Todo> {
         return todoDao.find(id)
     }
 

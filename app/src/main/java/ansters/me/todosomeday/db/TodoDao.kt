@@ -8,10 +8,10 @@ import ansters.me.todosomeday.data.Todo
 abstract class TodoDao {
 
     @Insert
-    abstract fun insert(todo: Todo)
+    abstract fun insert(todo: Todo): Long
 
     @Query("SELECT id, task, date, status FROM todo WHERE id = :id")
-    abstract fun find(id: Long): Todo
+    abstract fun find(id: Long): LiveData<Todo>
 
     @Update
     abstract fun update(todo: Todo)
