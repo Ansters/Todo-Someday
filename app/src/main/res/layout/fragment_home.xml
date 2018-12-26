@@ -31,11 +31,26 @@
                 android:gravity="center">
 
                 <TextView
+                    android:id="@+id/text_title"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     style="@style/TitleApp"/>
 
             </RelativeLayout>
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:cardCornerRadius="16dp"
+                style="@style/DateButton">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@{homeVM.dateSelected}"
+                    style="@style/DateButtonText"/>
+
+            </androidx.cardview.widget.CardView>
 
         </com.google.android.material.appbar.AppBarLayout>
 
@@ -44,13 +59,14 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             app:layout_behavior="@string/appbar_scrolling_view_behavior"
-            app:layoutManager="LinearLayoutManager"/>
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"/>
 
         <View
             android:id="@+id/dim"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@color/background_dim_dark"/>
+            android:background="@color/background_dim_dark"
+            tools:visibility="gone"/>
 
         <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
