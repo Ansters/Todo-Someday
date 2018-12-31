@@ -12,7 +12,7 @@ class HomeViewModel @Inject constructor(private val todoRepository: TodoReposito
     var isEditTaskNotEmpty = MutableLiveData<Boolean>().apply { this.value = false }
     var todo = MutableLiveData<Todo>()
     var task = MutableLiveData<String>().apply { this.value = "" }
-    var dateSelected = MutableLiveData<String>().apply { this.value = Util.getDateToday() }
+    var dateSelected = MutableLiveData<String>().apply { this.value = "" }
 
     fun editTextFocusChange(hasFocus: Boolean) {
         isCurrentlyAddTask.value = hasFocus
@@ -25,5 +25,13 @@ class HomeViewModel @Inject constructor(private val todoRepository: TodoReposito
         val addTodo = Todo(task.value!!, Util.getDateToday(), 0)
         todoRepository.addTodo(addTodo)
         todo.value = addTodo
+
+    }
+
+    fun reset() {
+        isEditTaskNotEmpty.value = false
+        isCurrentlyAddTask.value = false
+        todo.value = Todo("", "", 0)
+        task.value = ""
     }
 }

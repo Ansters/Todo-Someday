@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.databinding.DataBindingComponent
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
@@ -40,6 +41,7 @@ class HomeFragment : BaseFragment() {
         binding.setLifecycleOwner(this)
         binding.homeVM = ViewModelProviders.of(this, viewModelFactory).get(HomeViewModel::class.java)
         binding.btnAdd.isEnabled = false
+        binding.homeVM?.dateSelected?.value = Util.convertFormatDateToTextDate(context!!, Util.getDateToday())
         initAddTaskListener()
         subscribedUI()
     }
