@@ -1,24 +1,33 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
+<layout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    style="@style/Todo">
+    xmlns:tools="http://schemas.android.com/tools">
 
-    <CheckBox
-        android:id="@+id/cbFinish"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:button="@drawable/btn_circle_checkbox"
-        android:layout_marginEnd="16dp"/>
+    <data>
+        <variable
+            name="todo"
+            type="ansters.me.todosomeday.data.Todo"/>
+    </data>
 
-    <TextView
-        android:id="@+id/tvTodo"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        style="@style/TextTodo"
-        tools:text="Prepare to face The mighty Millhouse Manastorm!"/>
+        style="@style/Todo">
 
-</LinearLayout>
+        <CheckBox
+            android:id="@+id/cbFinish"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:button="@drawable/btn_circle_checkbox"
+            android:layout_marginEnd="16dp"/>
+
+        <TextView
+            android:id="@+id/tvTodo"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            style="@style/TextTodo"
+            tools:text="Prepare to face The mighty Millhouse Manastorm!"/>
+
+    </LinearLayout>
+</layout>
