@@ -12,6 +12,7 @@ import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelProviders
+import androidx.recyclerview.widget.LinearLayoutManager
 
 import ansters.me.todosomeday.R
 import ansters.me.todosomeday.base.BaseFragment
@@ -26,6 +27,8 @@ class HomeFragment : BaseFragment() {
 
     private lateinit var binding: FragmentHomeBinding
     private lateinit var homeVM: HomeViewModel
+
+    private lateinit var adapter: TodoListAdapter
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -45,9 +48,9 @@ class HomeFragment : BaseFragment() {
         binding.homeVM = ViewModelProviders.of(this, viewModelFactory).get(HomeViewModel::class.java)
         homeVM = binding.homeVM!!
         subscribedUI()
-
         homeVM.dateQuery.value = Util.getDateToday()
         initAddTaskListener()
+        initRecyclerView()
     }
 
     private fun initAddTaskListener() {
@@ -63,6 +66,12 @@ class HomeFragment : BaseFragment() {
         binding.dim.setOnClickListener {
             clearFocus()
         }
+    }
+
+    private fun initRecyclerView() {
+        adapter = TodoListAdapter()
+        binding.todoList.adapter = adapter
+        binding.todoList.layoutManager = LinearLayoutManager(context)
     }
 
     private fun clearFocus() {
@@ -91,7 +100,7 @@ class HomeFragment : BaseFragment() {
         })
 
         homeVM.todoList.observe(viewLifecycleOwner, Observer { todos ->
-
+            adapter.submitList(todos)
         })
 
         homeVM.isAddTaskCompleted.observe(viewLifecycleOwner, Observer { completed ->
