@@ -1,5 +1,6 @@
 package ansters.me.todosomeday.ui.home
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Transformations
@@ -13,11 +14,13 @@ class HomeViewModel @Inject constructor(private val todoRepository: TodoReposito
 
     var isCurrentlyAddTask = MutableLiveData<Boolean>().apply { this.value = false }
     var isEditTaskNotEmpty = MutableLiveData<Boolean>().apply { this.value = false }
+    var isAddTaskCompleted = MutableLiveData<Boolean>().apply { this.value = false }
     var task = MutableLiveData<String>().apply { this.value = "" }
-    var dateSelected = MutableLiveData<String>().apply { this.value = "" }
-    var todo = MutableLiveData<Todo>()
 
-    val todoList: LiveData<List<Todo>> = Transformations.switchMap(dateSelected) { date ->
+    var dateSelected = MutableLiveData<String>().apply { this.value = "" }
+    var dateQuery = MutableLiveData<String>().apply { this.value = "" }
+
+    val todoList: LiveData<List<Todo>> = Transformations.switchMap(dateQuery) { date ->
         todoRepository.getTodosByDate(date)
     }
 
@@ -31,13 +34,13 @@ class HomeViewModel @Inject constructor(private val todoRepository: TodoReposito
     fun submitNewTodo() {
         val addTodo = Todo(task.value!!, Util.getDateToday(), 0)
         todoRepository.addTodo(addTodo)
-        todo.postValue(addTodo)
+        isAddTaskCompleted.postValue(true)
     }
 
     fun reset() {
-        isEditTaskNotEmpty.value = false
-        isCurrentlyAddTask.value = false
-        todo.value = Todo("", "", 0)
-        task.value = ""
+        isEditTaskNotEmpty.postValue(false)
+        isCurrentlyAddTask.postValue(false)
+        isAddTaskCompleted.postValue(false)
+        task.postValue("")
     }
 }
