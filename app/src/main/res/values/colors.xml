@@ -4,6 +4,9 @@
     <color name="colorPrimaryDark">#00574B</color>
     <color name="colorAccent">#D81B60</color>
 
+    <color name="shadow_start">#75767676</color>
+    <color name="shadow_end">#00ffffff</color>
+
     <color name="background_main">#EBEBEB</color>
     <color name="text_main">#1F1F1F</color>
     <color name="text_disable">#8F8F8F</color>
