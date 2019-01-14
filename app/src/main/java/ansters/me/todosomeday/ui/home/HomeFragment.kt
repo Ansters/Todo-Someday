@@ -16,6 +16,8 @@ import androidx.recyclerview.widget.LinearLayoutManager
 
 import ansters.me.todosomeday.R
 import ansters.me.todosomeday.base.BaseFragment
+import ansters.me.todosomeday.data.Header
+import ansters.me.todosomeday.data.Item
 import ansters.me.todosomeday.databinding.FragmentHomeBinding
 import ansters.me.todosomeday.util.Util
 import javax.inject.Inject
@@ -69,7 +71,11 @@ class HomeFragment : BaseFragment() {
     }
 
     private fun initRecyclerView() {
-        adapter = TodoListAdapter()
+        adapter = TodoListAdapter() { todo ->
+            AsyncTask.execute {
+                homeVM.updateStatus(todo)
+            }
+        }
         binding.todoList.adapter = adapter
         binding.todoList.layoutManager = LinearLayoutManager(context)
     }
@@ -100,6 +106,10 @@ class HomeFragment : BaseFragment() {
         })
 
         homeVM.todoList.observe(viewLifecycleOwner, Observer { todos ->
+            val items: List<Item> = todos
+            if (items is ArrayList) {
+                items.add(Header("COMPLETED"))
+            }
             adapter.submitList(todos)
         })
 

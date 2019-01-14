@@ -1,6 +1,5 @@
 package ansters.me.todosomeday.ui.home
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Transformations
@@ -29,6 +28,11 @@ class HomeViewModel @Inject constructor(private val todoRepository: TodoReposito
         if (!hasFocus) {
             isEditTaskNotEmpty.value = !task.value?.isEmpty()!!
         }
+    }
+
+    fun updateStatus(todo: Todo) {
+        todo.status = if (todo.status == 1) 0 else 1
+        todoRepository.updateTodo(todo)
     }
 
     fun submitNewTodo() {

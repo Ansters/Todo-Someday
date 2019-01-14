@@ -18,12 +18,12 @@ import ansters.me.todosomeday.databinding.ListTodoBinding
 import ansters.me.todosomeday.ui.common.DataBoundViewHolder
 
 class TodoListAdapter(
-
-) : ListAdapter<Item, TodoListAdapter.TodoViewHolder>(
+    private val todoClickCallback: ((Todo) -> Unit)
+) : ListAdapter<Item, DataBoundViewHolder<ViewDataBinding>>(
     AsyncDifferConfig.Builder(TodoListDiffCallback()).build()
 ) {
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TodoListAdapter.TodoViewHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): DataBoundViewHolder<ViewDataBinding> {
         if (viewType == R.layout.list_todo) {
             val binding = DataBindingUtil.inflate<ListTodoBinding>(
                 LayoutInflater.from(parent.context),
@@ -31,7 +31,7 @@ class TodoListAdapter(
                 parent,
                 false
             )
-            return TodoViewHolder(binding)
+            return DataBoundViewHolder(binding)
         }
         else {
             val binding = DataBindingUtil.inflate<ListHeaderBinding>(
@@ -40,39 +40,25 @@ class TodoListAdapter(
                 parent,
                 false
             )
-            return TodoViewHolder(binding)
+            return DataBoundViewHolder(binding)
         }
     }
 
-    override fun onBindViewHolder(holder: TodoListAdapter.TodoViewHolder, position: Int) {
-        holder.bind(getItem(position))
+    override fun onBindViewHolder(holder: DataBoundViewHolder<ViewDataBinding>, position: Int) {
+        val item = getItem(position)
+        if (holder.binding is ListTodoBinding && item is Todo) {
+            holder.binding.todo = item
+            holder.binding.cbFinish.setOnClickListener {
+                todoClickCallback(item)
+            }
+        }
+        else if (holder.binding is ListHeaderBinding && item is Header) {
+            holder.binding.header = item
+        }
     }
 
     override fun getItemViewType(position: Int): Int {
         return getItem(position).viewType
-    }
-
-    class TodoViewHolder : RecyclerView.ViewHolder {
-
-        lateinit var todoBinding: ListTodoBinding
-        lateinit var headerBinding: ListHeaderBinding
-
-        constructor(todoBinding: ListTodoBinding) : super(todoBinding.root) {
-           this.todoBinding = todoBinding
-        }
-        constructor(headerBinding: ListHeaderBinding) : super(headerBinding.root) {
-            this.headerBinding = headerBinding
-        }
-
-        fun bind(item: Item) {
-            if (item is Todo) {
-                todoBinding.todo = item
-            }
-            else if (item is Header) {
-                headerBinding.header = item
-            }
-        }
-
     }
 
     class TodoListDiffCallback : DiffUtil.ItemCallback<Item>() {
